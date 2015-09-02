@@ -51,10 +51,16 @@ subClient
 		console.log('SubClient::connected');
 	})
 
-io.adapter(socketIORedis({
+var adapter = socketIORedis({
 	pubClient: pubClient,
 	subClient: subClient
-}));
+});
+
+adapter.on('error', function(err) {
+	console.log('SocketIOAdapter::error::', err);
+});
+io.adapter(adapter);
+
 
 /**
  * Configuration for 'jarmo-socket.io'.
