@@ -8,6 +8,9 @@ var socketIORedis = require('socket.io-redis');
 var io     = socketIO();
 var config = require('./config');
 
+// enable 'debug' mode for the IO
+redis.debug_mode = process.env.NODE_ENV !== 'production';
+
 /**
  * Do nothing.
  */
