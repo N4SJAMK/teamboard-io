@@ -58,7 +58,7 @@ subClient
 io.adapter(socketIORedis({
 	pubClient: pubClient,
 	subClient: subClient
-});
+}));
 
 /**
  * Configuration for 'jarmo-socket.io'.
