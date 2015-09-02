@@ -59,6 +59,11 @@ var adapter = socketIORedis({
 adapter.on('error', function(err) {
 	console.log('SocketIOAdapter::error::', err);
 });
+
+process.on('uncaughtException', function(err) {
+	console.log('Caught exception: ' + err);
+});
+
 io.adapter(adapter);
 
 
