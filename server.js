@@ -13,8 +13,6 @@ var config = require('./config');
  */
 var noop = function() { }
 
-console.log(JSON.stringify(config.redis));
-
 /**
  * Set Redis as our 'MemoryStore' for much scalability.
  *
@@ -34,8 +32,21 @@ var subClient = redis.createClient(
 	}
 );
 
-pubClient.on('error', console.log);
-subClient.on('error', console.log);
+pubClient
+	.on('error', function(err) {
+		console.log('PubClient::error::', err);
+	})
+	.on('connect', function() {
+		console.log('PubClient::connected');
+	})
+
+subClient
+	.on('error', function(err) {
+		console.log('SubClient::error::', err);
+	})
+	.on('connect', function() {
+		console.log('SubClient::connected');
+	})
 
 io.adapter(socketIORedis({
 	pubClient: pubClient,
