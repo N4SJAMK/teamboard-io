@@ -13,6 +13,8 @@ var config = require('./config');
  */
 var noop = function() { }
 
+console.log(JSON.stringify(config.redis));
+
 /**
  * Set Redis as our 'MemoryStore' for much scalability.
  *
