@@ -16,6 +16,10 @@ redis.debug_mode = process.env.NODE_ENV !== 'production';
  */
 var noop = function() { }
 
+process.on('uncaughtException', function(err) {
+	console.log('Caught exception: ' + err);
+});
+
 /**
  * Set Redis as our 'MemoryStore' for much scalability.
  *
@@ -51,21 +55,10 @@ subClient
 		console.log('SubClient::connected');
 	})
 
-var adapter = socketIORedis({
+io.adapter(socketIORedis({
 	pubClient: pubClient,
 	subClient: subClient
 });
-
-adapter.on('error', function(err) {
-	console.log('SocketIOAdapter::error::', err);
-});
-
-process.on('uncaughtException', function(err) {
-	console.log('Caught exception: ' + err);
-});
-
-io.adapter(adapter);
-
 
 /**
  * Configuration for 'jarmo-socket.io'.
